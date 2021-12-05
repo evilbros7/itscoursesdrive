@@ -218,7 +218,6 @@ def bot_help(update, context):
     sendMarkup(help_string, context.bot, update, reply_markup)
 
 botcmds = [
-
         (f'{BotCommands.MirrorCommand}', 'Mirror'),
         (f'{BotCommands.ZipMirrorCommand}','Mirror and upload as zip'),
         (f'{BotCommands.UnzipMirrorCommand}','Mirror and extract files'),
