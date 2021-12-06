@@ -6,7 +6,7 @@ from telegram.message import Message
 from telegram.update import Update
 from telegram.error import TimedOut, BadRequest, RetryAfter
 
-from bot import AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, status_reply_dict, status_reply_dict_lock, \
+from bot import AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, dispatcher, status_reply_dict, status_reply_dict_lock, \
                 Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL
 from bot.helper.ext_utils.bot_utils import get_readable_message, setInterval
 
