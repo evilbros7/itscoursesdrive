@@ -27,7 +27,7 @@ from .helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper import button_build
 from bot.helper import get_text, check_heroku
 from .modules.rssfeeds import rss_init
-from .modules import authorize, cancel_mirror, clone, config, count, delete, eval, leech_settings, list, mediainfo, mirror, mirror_status, reboot, rssfeeds, search, shell, speedtest, torrent_search, usage, watch
+from .modules import authorize, cancel_mirror, clone, config, count, delete, eval, leech_settings, list, mirror, mirror_status, reboot, rssfeeds, search, shell, speedtest, torrent_search, usage, watch
 now=datetime.now(pytz.timezone(f'{TIMEZONE}'))
 
 IMAGE_X = f"{IMAGE_URL}"
