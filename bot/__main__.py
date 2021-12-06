@@ -55,7 +55,8 @@ def stats(update, context):
     mem_t = get_readable_file_size(memory.total)
     mem_a = get_readable_file_size(memory.available)
     mem_u = get_readable_file_size(memory.used)
-    stats = f'▶ 𝖱𝖴𝖭𝖭𝖨𝖭𝖦 𝖲𝖨𝖭𝖢𝖤 ▶ : {currentTime}\n' \
+    stats = f"〣 {CHAT_NAME} 〣\n\n" \
+            f'▶ 𝖱𝖴𝖭𝖭𝖨𝖭𝖦 𝖲𝖨𝖭𝖢𝖤 ▶ : {currentTime}\n' \
             f'<b>𝖣𝖨𝖲𝖪 𝖨𝖭𝖥𝖮</b>\n' \
             f'<b>ᴛᴏᴛᴀʟ</b> : {total}\n' \
             f'<b>ᴜꜱᴇᴅ</b> : {used} ~ ' \
