@@ -381,6 +381,30 @@ except KeyError:
     SHORTENER = None
     SHORTENER_API = None
 try:
+    TIMEZONE = getConfig('TIMEZONE')
+    if len(TIMEZONE) == 0:
+        TIMEZONE = None
+except KeyError:
+    TIMEZONE = 'Asia/Kuala_Lumpur'
+try:
+    BOT_USERNAME = getConfig('BOT_USERNAME')
+    if len(BOT_USERNAME) == 0:
+        BOT_USERNAME = None
+except KeyError:
+    BOT_USERNAME = '@pmirror_bot'
+try:
+    BOT_NAME = getConfig('BOT_NAME')
+    if len(BOT_NAME) == 0:
+        BOT_NAME = None
+except KeyError:
+    BOT_NAME = 'P-Mιɾɾσɾ'
+try:
+    IMAGE_URL = getConfig('IMAGE_URL')
+    if len(IMAGE_URL) == 0:
+        IMAGE_URL = None
+except KeyError:
+    IMAGE_URL = 'https://telegra.ph/file/b5d9a2910d65ce0596f59.jpg'
+try:
     CHAT_ID = getConfig('CHAT_ID')
     DELAY = int(getConfig('DELAY'))
     INIT_FEEDS = getConfig('INIT_FEEDS')
