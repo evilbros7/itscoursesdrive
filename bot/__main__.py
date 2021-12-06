@@ -3,17 +3,21 @@ import signal
 import os
 import asyncio
 import time
+import pytz
 import subprocess
 
-from pyrogram import idle
+from pyrogram import idle, filters, types, emoji
 from sys import executable
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import CommandHandler
+from telegram.ext import Filters, InlineQueryHandler, MessageHandler, CommandHandler, CallbackQueryHandler, CallbackContext
 from quoters import Quote
+from datetime import datetime
+from speedtest import Speedtest
 
 
 from wserver import start_server_async
-from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, nox, OWNER_ID, AUTHORIZED_CHATS, LOGGER, BOT_NO
+from telegram.utils.helpers import escape_markdown
+from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, nox, OWNER_ID, AUTHORIZED_CHATS, LOGGER, CHAT_NAME, LOG_GROUP, BOT_NO
 from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
@@ -22,12 +26,16 @@ from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_tim
 from .helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper import button_build
 from .modules.rssfeeds import rss_init
-from .modules import authorize, cancel_mirror, clone, count, delete, eval, leech_settings, list, mirror, mirror_status, rssfeeds, search, shell, speedtest, torrent_search, watch 
+from .modules import authorize, cancel_mirror, clone, config, count, delete, eval, leech_settings, list, mediainfo, mirror, mirror_status, reboot, rssfeeds, search, shell, speedtest, torrent_search, usage, watch
+now=datetime.now(pytz.timezone(f'{TIMEZONE}'))
+
+IMAGE_X = f"{IMAGE_URL}"
 
 
 def stats(update, context):
     global main
     currentTime = get_readable_time(time.time() - botStartTime)
+    current = now.strftime('📅: %d/%m/%Y\n⏲️: %I:%M:%S %p')
     total, used, free = shutil.disk_usage('.')
     total = get_readable_file_size(total)
     used = get_readable_file_size(used)
@@ -73,6 +81,14 @@ def stats(update, context):
     main = sendMarkup(stats, context.bot, update, reply_markup=InlineKeyboardMarkup(keyboard))
 
 
+def call_back_data(update, context):
+    global main
+    query = update.callback_query
+    query.answer()
+    main.delete()
+    main = None
+
+
 def start(update, context):
     buttons = button_build.ButtonMaker()
     buttons.buildbutton("Repo", "https://github.com/PriiiiyoDevs/priiiiyo-mirror-leech-bot")
@@ -94,7 +110,7 @@ Type /{BotCommands.HelpCommand} to get a list of available commands
 
 
 def restart(update, context):
-    restart_message = sendMessage("Restarting...", context.bot, update)
+    restart_message = sendMessage("Restarting The Bot {BOT_NO}", context.bot, update)
     fs_utils.clean_all()
     alive.kill()
     process = psutil.Process(web.pid)
@@ -256,6 +272,9 @@ botcmds = [
 
 def main():
     bot.set_my_commands(botcmds)
+    quo_te = Quote.print()
+    kie = datetime.now(pytz.timezone(f'{TIMEZONE}'))
+    jam = kie.strftime('\n📅 𝘿𝘼𝙏𝙀: %d/%m/%Y\n⏲️ 𝙏𝙄𝙈𝙀: %I:%M%P')
     fs_utils.start_cleanup()
     if IS_VPS:
         asyncio.new_event_loop().run_until_complete(start_server_async(PORT))
