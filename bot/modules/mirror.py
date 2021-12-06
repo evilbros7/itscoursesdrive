@@ -248,7 +248,7 @@ class MirrorListener(listeners.MirrorListeners):
                     pass
                 del download_dict[self.uid]
                 count = len(download_dict)
-             fwdpm = f'\n\n<b>You Can Find Upload In Private Chat</b>\n\n<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>'
+        fwdpm = f'\n\n<b>You Can Find Upload In Private Chat</b>\n\n<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>'
         logmsg = sendLog(msg + msg_g, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
         if logmsg:
             log_m = f"\n\n<b>Link Uploaded, Click Below Button</b>\n\n<b>I've Sent Your Links In Pm</b>"
