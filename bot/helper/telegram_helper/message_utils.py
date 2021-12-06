@@ -27,6 +27,7 @@ def sendMessage(text: str, bot, update: Update):
     except Exception as e:
         LOGGER.error(str(e))
 
+        
 def sendMarkup(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
     try:
         return bot.send_message(update.message.chat_id,
@@ -39,26 +40,8 @@ def sendMarkup(text: str, bot, update: Update, reply_markup: InlineKeyboardMarku
         return sendMarkup(text, bot, update, reply_markup)
     except Exception as e:
         LOGGER.error(str(e))
-
-def editMessage(text: str, message: Message, reply_markup=None):
-    try:
-        bot.edit_message_text(text=text, message_id=message.message_id,
-                              chat_id=message.chat.id,reply_markup=reply_markup,
-                              parse_mode='HTMl', disable_web_page_preview=True)
-    except RetryAfter as r:
-        LOGGER.error(str(r))
-        time.sleep(r.retry_after)
-        return editMessage(text, message, reply_markup)
-    except Exception as e:
-        LOGGER.error(str(e))
-
-def deleteMessage(bot, message: Message):
-    try:
-        bot.delete_message(chat_id=message.chat.id,
-                           message_id=message.message_id)
-    except Exception as e:
-        LOGGER.error(str(e))
-
+        
+        
 def sendLog(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
     try:
         return bot.send_message(f"{LOG_CHANNEL}",
@@ -67,11 +50,6 @@ def sendLog(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
     except Exception as e:
         LOGGER.error(str(e))
 
-def sendLogFile(bot, update: Update):
-    with open('log.txt', 'rb') as f:
-        bot.send_document(document=f, filename=f.name,
-                          reply_to_message_id=update.message.message_id,
-                          chat_id=update.message.chat_id)
 
 def sendtextlog(text: str, bot, update: Update):
     try:
@@ -80,6 +58,7 @@ def sendtextlog(text: str, bot, update: Update):
                              text=text, disable_web_page_preview=True, allow_sending_without_reply=True, parse_mode='HTMl')
     except Exception as e:
         LOGGER.error(str(e))
+
 
 def sendPrivate(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
     bot_d = bot.get_me()
@@ -98,7 +77,36 @@ def sendPrivate(text: str, bot, update: Update, reply_markup: InlineKeyboardMark
             [InlineKeyboardButton("START BOT", url = f"{botstart}")],
             [InlineKeyboardButton("JOIN LOG CHANNEL", url = f"t.me/{LOG_UNAME}")]]
             sendMarkup(f"Dear {uname},\n\n<b>I Found That You Haven't Started Me In PM (Private Chat) Yet.</b>\n\n<b>From Now On I Will Give You Links In PM (Private Chat) Only.</b>\n\n<i><b>Please Start Me in PM (Private Chat) & Don't Miss Future Uploads.</b></i>\n\n<b>From Now Get Your Links From @{LOG_UNAME} Or Search Using /search</b>.", bot, update, reply_markup=InlineKeyboardMarkup(keyboard))
-            
+            return        
+        
+
+def editMessage(text: str, message: Message, reply_markup=None):
+    try:
+        bot.edit_message_text(text=text, message_id=message.message_id,
+                              chat_id=message.chat.id,reply_markup=reply_markup,
+                              parse_mode='HTMl', disable_web_page_preview=True)
+    except RetryAfter as r:
+        LOGGER.error(str(r))
+        time.sleep(r.retry_after)
+        return editMessage(text, message, reply_markup)
+    except Exception as e:
+        LOGGER.error(str(e))
+
+        
+def deleteMessage(bot, message: Message):
+    try:
+        bot.delete_message(chat_id=message.chat.id,
+                           message_id=message.message_id)
+    except Exception as e:
+        LOGGER.error(str(e))
+
+
+def sendLogFile(bot, update: Update):
+    with open('log.txt', 'rb') as f:
+        bot.send_document(document=f, filename=f.name,
+                          reply_to_message_id=update.message.message_id,
+                          chat_id=update.message.chat_id)
+
 
 def auto_delete_message(bot, cmd_message: Message, bot_message: Message):
     if AUTO_DELETE_MESSAGE_DURATION != -1:
@@ -131,6 +139,24 @@ def update_all_messages():
     msg += f"<b>CPU:</b> <code>{psutil.cpu_percent()}%</code>" \
            f" <b>RAM:</b> <code>{psutil.virtual_memory().percent}%</code>" \
            f" <b>DISK:</b> <code>{psutil.disk_usage('/').percent}%</code>"
+    with download_dict_lock:
+        dlspeed_bytes = 0
+        uldl_bytes = 0
+        for download in list(download_dict.values()):
+            speedy = download.speed()
+            if download.status() == MirrorStatus.STATUS_DOWNLOADING:
+                if 'K' in speedy:
+                    dlspeed_bytes += float(speedy.split('K')[0]) * 1024
+                elif 'M' in speedy:
+                    dlspeed_bytes += float(speedy.split('M')[0]) * 1048576 
+            if download.status() == MirrorStatus.STATUS_UPLOADING:
+                if 'KB/s' in speedy:
+            	    uldl_bytes += float(speedy.split('K')[0]) * 1024
+                elif 'MB/s' in speedy:
+                    uldl_bytes += float(speedy.split('M')[0]) * 1048576
+        dlspeed = get_readable_file_size(dlspeed_bytes)
+        ulspeed = get_readable_file_size(uldl_bytes)
+        msg += f"\n<b>FREE :</b> <code>{free}</code> | <b>UPTIME :</b> <code>{currentTime}</code>\n<b>DL :</b> <code>{dlspeed}/s</code> 🔻 | <b>UL :</b> <code>{ulspeed}/s</code> 🔺\n"
     with status_reply_dict_lock:
         for chat_id in list(status_reply_dict.keys()):
             if status_reply_dict[chat_id] and msg != status_reply_dict[chat_id].text:
@@ -145,6 +171,7 @@ def update_all_messages():
                     LOGGER.error(str(e))
                 status_reply_dict[chat_id].text = msg
 
+                
 def sendStatusMessage(msg, bot):
     if len(Interval) == 0:
         Interval.append(setInterval(DOWNLOAD_STATUS_UPDATE_INTERVAL, update_all_messages))
@@ -157,8 +184,26 @@ def sendStatusMessage(msg, bot):
     if progress is None:
         progress, buttons = get_readable_message()
     progress += f"<b>CPU:</b> <code>{psutil.cpu_percent()}%</code>" \
-           f" <b>RAM:</b> <code>{psutil.virtual_memory().percent}%</code>" \
-           f" <b>DISK:</b> <code>{psutil.disk_usage('/').percent}%</code>"
+                f" <b>RAM:</b> <code>{psutil.virtual_memory().percent}%</code>" \
+                f" <b>DISK:</b> <code>{psutil.disk_usage('/').percent}%</code>"
+    with download_dict_lock:
+        dlspeed_bytes = 0
+        uldl_bytes = 0
+        for download in list(download_dict.values()):
+            speedy = download.speed()
+            if download.status() == MirrorStatus.STATUS_DOWNLOADING:
+                if 'K' in speedy:
+                    dlspeed_bytes += float(speedy.split('K')[0]) * 1024
+                elif 'M' in speedy:
+                    dlspeed_bytes += float(speedy.split('M')[0]) * 1048576 
+            if download.status() == MirrorStatus.STATUS_UPLOADING:
+                if 'KB/s' in speedy:
+            	    uldl_bytes += float(speedy.split('K')[0]) * 1024
+                elif 'MB/s' in speedy:
+                    uldl_bytes += float(speedy.split('M')[0]) * 1048576
+        dlspeed = get_readable_file_size(dlspeed_bytes)
+        ulspeed = get_readable_file_size(uldl_bytes)
+        progress += f"\n<b>FREE:</b> <code>{free}</code> | <b>UPTIME:</b> <code>{currentTime}</code>\n<b>DL:</b> <code>{dlspeed}/s</code> 🔻 | <b>UL:</b> <code>{ulspeed}/s</code> 🔺\n"
     with status_reply_dict_lock:
         if msg.message.chat.id in list(status_reply_dict.keys()):
             try:
@@ -168,11 +213,11 @@ def sendStatusMessage(msg, bot):
             except Exception as e:
                 LOGGER.error(str(e))
                 del status_reply_dict[msg.message.chat.id]
+                pass
         if len(progress) == 0:
             progress = "Starting DL"
-        else:
             message = sendMarkup(progress, bot, msg, buttons)
-        status_reply_dict[msg.message.chat.id] = message
+            status_reply_dict[msg.message.chat.id] = message
 
 ONE, TWO, THREE = range(3)
 
