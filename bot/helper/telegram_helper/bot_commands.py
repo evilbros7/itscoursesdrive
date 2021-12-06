@@ -27,6 +27,7 @@ class _BotCommands:
         self.RmSudoCommand = getCommand('RMSUDO_COMMAND', f'rmsudo{BOT_NO}')
         self.PingCommand = getCommand('PING_COMMAND', f'ping{BOT_NO}')
         self.RestartCommand = getCommand('RESTART_COMMAND', f'restart{BOT_NO}')
+        self.RebootCommand = getCommand('REBOOT_COMMAND', f'reboot{BOT_NO}')
         self.StatsCommand = getCommand('STATS_COMMAND', f'stats{BOT_NO}')
         self.HelpCommand = getCommand('HELP_COMMAND', f'help{BOT_NO}')
         self.LogCommand = getCommand('LOG_COMMAND', f'log{BOT_NO}')
