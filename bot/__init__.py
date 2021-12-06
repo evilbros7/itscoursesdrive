@@ -171,10 +171,6 @@ try:
 except:
     pass
 try:
-    BOT_NO = getConfig('BOT_NO')
-except KeyError:
-    BOT_NO = ""
-try:
     BOT_TOKEN = getConfig('BOT_TOKEN')
     CHAT_NAME = getConfig('CHAT_NAME')
     parent_id = getConfig('GDRIVE_FOLDER_ID')
@@ -185,10 +181,7 @@ try:
     OWNER_ID = int(getConfig('OWNER_ID'))
     AUTO_DELETE_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_MESSAGE_DURATION'))
     TELEGRAM_API = getConfig('TELEGRAM_API')
-    TELEGRAM_HASH = getConfig('TELEGRAM_HASH')
-    LOG_GROUP = getConfig('LOG_GROUP')
-    LOG_UNAME = getConfig('LOG_UNAME')
-    LOG_CHANNEL = getConfig('LOG_CHANNEL')
+    TELEGRAM_HASH = getConfig('TELEGRAM_HASH')   
     LOG_CHANNEL_ID = getConfig('LOG_CHANNEL_ID')
     LOG_CHANNEL_LINK = getConfig('LOG_CHANNEL_LINK')
     LOG_SEND_TEXT = getConfig('LOG_SEND_TEXT')
@@ -539,6 +532,12 @@ try:
             logging.error(f"Failed to download cookies.txt, link got HTTP response: {res.status_code}")
     except Exception as e:
         logging.error(str(e))
+except KeyError:
+    pass
+try:
+    BOT_NO = getConfig('BOT_NO')
+    if len(BOT_NO) == 0:
+        BOT_NO = None
 except KeyError:
     pass
 
