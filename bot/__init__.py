@@ -405,6 +405,18 @@ try:
 except KeyError:
     IMAGE_URL = 'https://telegra.ph/file/b5d9a2910d65ce0596f59.jpg'
 try:
+    FINISHED_PROGRESS_STR = getConfig('FINISHED_PROGRESS_STR')
+    if len(FINISHED_PROGRESS_STR) == 0:
+        FINISHED_PROGRESS_STR = '■'
+except KeyError:
+    FINISHED_PROGRESS_STR = '■'
+try:
+    UNFINISHED_PROGRESS_STR = getConfig('UNFINISHED_PROGRESS_STR')
+    if len(UNFINISHED_PROGRESS_STR) == 0:
+        UNFINISHED_PROGRESS_STR = '□'
+except KeyError:
+    UNFINISHED_PROGRESS_STR = '□'
+try:
     CHAT_ID = getConfig('CHAT_ID')
     DELAY = int(getConfig('DELAY'))
     INIT_FEEDS = getConfig('INIT_FEEDS')
