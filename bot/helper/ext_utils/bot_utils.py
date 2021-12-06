@@ -141,7 +141,17 @@ def progress_bar(percentage):
 
 def get_readable_message():
     with download_dict_lock:
-        msg = ""
+        num_active = 0
+        num_waiting = 0
+        num_upload = 0
+        for stats in list(download_dict.values()):
+            if stats.status() == MirrorStatus.STATUS_DOWNLOADING:
+               num_active += 1
+            if stats.status() == MirrorStatus.STATUS_WAITING:
+               num_waiting += 1
+            if stats.status() == MirrorStatus.STATUS_UPLOADING:
+               num_upload += 1
+        msg = f"<b>DL: {num_active} || UL: {num_upload} || QUEUED: {num_waiting}</b>\n\n"
         START = 0
         dlspeed_bytes = 0
         uldl_bytes = 0
@@ -229,6 +239,7 @@ def get_readable_message():
             return msg + bmsg, button
         return msg + bmsg, ""
 
+    
 def turn(update, context):
     query = update.callback_query
     query.answer()
