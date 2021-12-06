@@ -41,7 +41,6 @@ class _BotCommands:
         self.QbZipMirrorCommand = getCommand('QBZIPMIRROR_COMMAND', f'qbzipmirror{BOT_NO}')
         self.DeleteCommand = getCommand('DELETE_COMMAND', f'del{BOT_NO}')
         self.ConfigMenuCommand = getCommand('CONFIGMENU_COMMAND', f'config{BOT_NO}')
-        self.MediaInfoCommand = getCommand('MEDIAINFO_COMMAND', f'mediainfo{BOT_NO}')
         self.UsageCommand = getCommand('USAGE_COMMAND', f'usage{BOT_NO}')
         self.ShellCommand = getCommand('SHELL_COMMAND', f'shell{BOT_NO}')
         self.TsHelpCommand = getCommand('TSHELP_COMMAND', f'tshelp{BOT_NO}')
