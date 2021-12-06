@@ -5,14 +5,18 @@ aria2p
 attrdict
 beautifulsoup4
 cfscrape
+DateTime
 feedparser
 google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 gunicorn
+html-telegraph-poster
 js2py
 lk21
 lxml
+messages
+natsort
 pillow
 psutil
 psycopg2-binary
@@ -22,6 +26,7 @@ pyshorteners
 python-dotenv
 python-magic
 python-telegram-bot
+pytz
 qbittorrent-api
 quoters
 requests
