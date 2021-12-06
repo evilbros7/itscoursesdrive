@@ -25,6 +25,7 @@ from .helper.ext_utils.telegraph_helper import telegraph
 from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
 from .helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper import button_build
+from bot.helper import get_text, check_heroku
 from .modules.rssfeeds import rss_init
 from .modules import authorize, cancel_mirror, clone, config, count, delete, eval, leech_settings, list, mediainfo, mirror, mirror_status, reboot, rssfeeds, search, shell, speedtest, torrent_search, usage, watch
 now=datetime.now(pytz.timezone(f'{TIMEZONE}'))
@@ -125,6 +126,13 @@ def restart(update, context):
         f.truncate(0)
         f.write(f"{restart_message.chat.id}\n{restart_message.message_id}\n")
     os.execl(executable, executable, "-m", "bot")
+
+
+@app.on_message(filters.command([BotCommands.RebootCommand]) & filters.user(OWNER_ID))
+@check_heroku
+async def gib_restart(client, message, hap):
+    msg_ = await message.reply_text("Restarting Dynos")
+    hap.restart()
 
 
 def ping(update, context):
