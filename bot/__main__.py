@@ -17,7 +17,7 @@ from speedtest import Speedtest
 
 from wserver import start_server_async
 from telegram.utils.helpers import escape_markdown
-from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, nox, OWNER_ID, AUTHORIZED_CHATS, LOGGER, CHAT_NAME, LOG_GROUP, BOT_NO
+from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, nox, OWNER_ID, AUTHORIZED_CHATS, LOGGER, CHAT_NAME, LOG_GROUP, BOT_NO, TIMEZONE
 from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
