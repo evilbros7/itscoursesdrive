@@ -18,6 +18,8 @@ URL_REGEX = r"(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+"
 COUNT = 0
 PAGE_NO = 1
 
+FINISHED_PROGRESS_STR = "■"
+UNFINISHED_PROGRESS_STR = "□"
 
 class MirrorStatus:
     STATUS_UPLOADING = "ᴜᴘʟᴏᴀᴅɪɴɢ...📤"
@@ -111,6 +113,30 @@ def get_progress_bar_string(status):
     p_str += '□' * (12 - cFull)
     p_str = f"[{p_str}]"
     return p_str
+
+
+def progress_bar(percentage):
+    """Returns a progress bar for download
+    """
+    #percentage is on the scale of 0-1
+    comp = FINISHED_PROGRESS_STR
+    ncomp = UNFINISHED_PROGRESS_STR
+    pr = ""
+
+    if isinstance(percentage, str):
+        return "NaN"
+
+    try:
+        percentage=int(percentage)
+    except:
+        percentage = 0
+
+    for i in range(1,11):
+        if i <= int(percentage/10):
+            pr += comp
+        else:
+            pr += ncomp
+    return pr
 
 
 def get_readable_message():
