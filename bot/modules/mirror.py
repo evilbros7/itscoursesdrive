@@ -228,8 +228,7 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 chat_id = str(self.message.chat.id)[4:]
                 msg += f'\n\n<b>#Uploaded By {uname}</b>\n\n<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>'
-                msg_g = f'\n\n - <b><i>Never Share G-Drive/Index Link.</i></b>\n - <b><i>Join TD To Access G-Drive Link.</i></b>'
-                fmsg = 'Developer : @iamSMMH'
+                fmsg = f'\n\n - <b><i>Never Share G-Drive/Index Link.</i></b>\n - <b><i>Join TD To Access G-Drive Link.</i></b>'
                 for index, item in enumerate(list(files), start=1):
                     msg_id = files[item]
                     link = f"https://t.me/c/{chat_id}/{msg_id}"
