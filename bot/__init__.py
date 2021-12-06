@@ -169,7 +169,11 @@ try:
     for chats in schats:
         SUDO_USERS.add(int(chats))
 except:
-    pass   
+    pass
+try:
+    BOT_NO = getConfig('BOT_NO')
+except KeyError:
+    BOT_NO = ""
 try:
     BOT_TOKEN = getConfig('BOT_TOKEN')
     CHAT_NAME = getConfig('CHAT_NAME')
@@ -182,6 +186,14 @@ try:
     AUTO_DELETE_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_MESSAGE_DURATION'))
     TELEGRAM_API = getConfig('TELEGRAM_API')
     TELEGRAM_HASH = getConfig('TELEGRAM_HASH')
+    LOG_GROUP = getConfig('LOG_GROUP')
+    LOG_UNAME = getConfig('LOG_UNAME')
+    LOG_CHANNEL = getConfig('LOG_CHANNEL')
+    LOG_CHANNEL_ID = getConfig('LOG_CHANNEL_ID')
+    LOG_CHANNEL_LINK = getConfig('LOG_CHANNEL_LINK')
+    LOG_SEND_TEXT = getConfig('LOG_SEND_TEXT')
+    UPSTREAM_REPO = getConfig('UPSTREAM_REPO')
+    UPSTREAM_BRANCH = getConfig('UPSTREAM_BRANCH')
 except KeyError as e:
     LOGGER.error("One or more env variables missing! Exiting now")
     exit(1)
