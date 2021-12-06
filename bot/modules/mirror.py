@@ -248,18 +248,10 @@ class MirrorListener(listeners.MirrorListeners):
                     pass
                 del download_dict[self.uid]
                 count = len(download_dict)
-        fwdpm = f'\n\n<b>You Can Find Upload In Private Chat</b>\n\n<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>'
-        logmsg = sendLog(msg + msg_g, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
-        if logmsg:
-            log_m = f"\n\n<b>Link Uploaded, Click Below Button</b>\n\n<b>I've Sent Your Links In Pm</b>"
-        else:
-            pass
-        sendMarkup(msg + log_m + fwdpm, self.bot, self.update, InlineKeyboardMarkup([[InlineKeyboardButton(text="Get Your Links", url=logmsg.link)]]))
-        sendPrivate(msg + msg_g, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
-        if count == 0:
-            self.clean()
-        else:
-            update_all_messages()
+            if count == 0:
+                self.clean()
+            else:
+                update_all_messages()
             return
         with download_dict_lock:
             msg = f'<b>🗂️ Filename: </b><code>{download_dict[self.uid].name()}</code>\n\n<b>📦 Size: </b>{size}'
@@ -296,14 +288,22 @@ class MirrorListener(listeners.MirrorListeners):
             else:
                 uname = f'<a href="tg://user?id={self.message.from_user.id}">{self.message.from_user.first_name}</a>'
             if uname is not None:
-                msg += f'\n\n<b>cc: </b>{uname}'
+                msg += f'\n\n<b>#Uploaded By {uname}</b>\n\n<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>'
+                msg_g = f'\n\n - <b><i>Never Share G-Drive/Index Link.</i></b>\n - <b><i>Join TD To Access G-Drive Link.</i></b>'
             try:
                 fs_utils.clean_download(download_dict[self.uid].path())
             except FileNotFoundError:
                 pass
             del download_dict[self.uid]
-            count = len(download_dict)
-        sendMarkup(msg, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
+            count = len(download_dict)  
+        fwdpm = f'\n\n<b>You Can Find Upload In Private Chat</b>\n\n<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>'
+        logmsg = sendLog(msg + msg_g, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
+        if logmsg:
+            log_m = f"\n\n<b>Link Uploaded, Click Below Button</b>\n\n<b>I've Sent Your Links In Pm</b>"
+        else:
+            pass
+        sendMarkup(msg + log_m + fwdpm, self.bot, self.update, InlineKeyboardMarkup([[InlineKeyboardButton(text="Get Your Links", url=logmsg.link)]]))
+        sendPrivate(msg + msg_g, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
         if count == 0:
             self.clean()
         else:
