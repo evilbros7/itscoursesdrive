@@ -6,8 +6,8 @@ from telegram.message import Message
 from telegram.update import Update
 from telegram.error import TimedOut, BadRequest, RetryAfter
 
-from bot import AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, dispatcher, status_reply_dict, status_reply_dict_lock, \
-                Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL
+from bot import AUTO_DELETE_MESSAGE_DURATION, LOGGER, bot, botStartTime, dispatcher, status_reply_dict, status_reply_dict_lock, \
+                Interval, DOWNLOAD_STATUS_UPDATE_INTERVAL, LOG_UNAME
 from bot.helper.ext_utils.bot_utils import get_readable_message, setInterval
 
 
@@ -116,6 +116,9 @@ def delete_all_messages():
                 LOGGER.error(str(e))
 
 def update_all_messages():
+    total, used, free = shutil.disk_usage('.')
+    free = get_readable_file_size(free)
+    currentTime = get_readable_time(time.time() - botStartTime)
     msg, buttons = get_readable_message()
     msg += f"<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>\n\n" \
            f"<b>BOT UPTIME :</b> <b>{currentTime}</b>\n\n"
@@ -141,6 +144,9 @@ def update_all_messages():
 def sendStatusMessage(msg, bot):
     if len(Interval) == 0:
         Interval.append(setInterval(DOWNLOAD_STATUS_UPDATE_INTERVAL, update_all_messages))
+    total, used, free = shutil.disk_usage('.')
+    free = get_readable_file_size(free)
+    currentTime = get_readable_time(time.time() - botStartTime)
     progress, buttons = get_readable_message()
     progress += f"<b>▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬</b>\n\n" \
            f"<b>BOT UPTIME :</b> <b>{currentTime}</b>\n\n"
