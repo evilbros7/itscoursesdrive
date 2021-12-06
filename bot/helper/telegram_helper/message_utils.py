@@ -217,7 +217,7 @@ def sendStatusMessage(msg, bot):
         if len(progress) == 0:
             progress = "Starting DL"
             message = sendMarkup(progress, bot, msg, buttons)
-            status_reply_dict[msg.message.chat.id] = message
+        status_reply_dict[msg.message.chat.id] = message
 
 ONE, TWO, THREE = range(3)
 
