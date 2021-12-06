@@ -1,4 +1,7 @@
 import time
+import psutil
+import shutil
+import pytz
 
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import CallbackContext, CallbackQueryHandler
