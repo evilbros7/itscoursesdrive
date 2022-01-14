@@ -392,7 +392,7 @@ def _mirror(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False
                 tg_downloader = TelegramDownloadHelper(listener)
                 ms = update.message
                 tg_downloader.add_download(ms, f'{DOWNLOAD_DIR}{listener.uid}/', name)
-                editMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested Telegram File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", tgs)
+                editMessage(f"<b>Hey {uname}</b>\n\n<b>Your Requested Telegram File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", tgs)
                 time.sleep(1)
                 sendtextlog(f"{uname} has sent - \n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n<code>{link}</code>\n\nUser ID : {uid}\n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬", bot, update)
                 return
@@ -473,13 +473,13 @@ def _mirror(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False
             download_dict[listener.uid] = download_status
         gmgs = sendMessage("<b>Processing Your G-Drive Link...</b>", bot, update)
         time.sleep(2)
-        editMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mgs)
+        editMessage(f"<b>{uname}</b>\n\n<b>Your Requested File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mgs)
         time.sleep(1)
-      # sendMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested G-Drive Folder Has Been Added To The Status For Archiving</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
+      # sendMessage(f"<b>{uname}</b>\n\n<b>Your Requested G-Drive Folder Has Been Added To The Status For Archiving</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
         if not isZip:
-            sendMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested G-Drive File Has Been Added To The Status For Extracting</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
+            sendMessage(f"<b>{uname}</b>\n\n<b>Your Requested G-Drive File Has Been Added To The Status For Extracting</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
         else:
-            sendMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested G-Drive Folder Has Been Added To The Status For Archiving</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
+            sendMessage(f"<b>{uname}</b>\n\n<b>Your Requested G-Drive Folder Has Been Added To The Status For Archiving</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
             sendtextlog(f"{uname} has sent - \n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n<code>{link}</code>\n\nUser ID : {uid}\n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬", bot, update)
         drive.download(link)
         if gdtot_link:
@@ -497,13 +497,13 @@ def _mirror(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False
             time.sleep(2)
             mega_dl = MegaDownloadHelper()
             mega_dl.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/', listener)
-            editMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested MEGA File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mgs)
+            editMessage(f"<b>{uname}</b>\n\n<b>Your Requested MEGA File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mgs)
             time.sleep(1)
             sendtextlog(f"{uname} has sent - \n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬\n\n<code>{link}</code>\n\nUser ID : {uid}\n\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬", bot, update)
             if link_type == "folder":
-                sendMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested MEGA Folder Has Been Added To The Status</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
+                sendMessage(f"<b>{uname}</b>\n\n<b>Your Requested MEGA Folder Has Been Added To The Status</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
             else:
-                sendMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested MEGA File Has Been Added To The Status</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
+                sendMessage(f"<b>{uname}</b>\n\n<b>Your Requested MEGA File Has Been Added To The Status</b>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", bot, update)
 
     elif isQbit and (bot_utils.is_magnet(link) or os.path.exists(link)):
         mgs = sendMessage("<b>Processing Your Torrent Link...</b>", bot, update)
@@ -520,22 +520,22 @@ def _mirror(bot, update, isZip=False, extract=False, isQbit=False, isLeech=False
         time.sleep(2)
         ariaDlManager.add_download(link, f'{DOWNLOAD_DIR}{listener.uid}/', listener, name)
         if reply_to is not None:
-            editMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested Torrent File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
+            editMessage(f"<b>{uname}</b>\n\n<b>Your Requested Torrent File Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
             time.sleep(1)
             sendtextlog(f"{uname} has sent - \n\n<code>{link}</code>\n\nUser ID : {uid}", bot, update)
             time.sleep(1)
         elif link.startswith("magnet"):
-            editMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested Magnet Link Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
+            editMessage(f"<b>{uname}</b>\n\n<b>Your Requested Magnet Link Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
             time.sleep(1)
             sendtextlog(f"{uname} has sent - \n\n<code>{link}</code>\n\nUser ID : {uid}", bot, update)
             time.sleep(1)
         elif link.endswith(".torrent"):
-            editMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested Torrent Link Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
+            editMessage(f"<b>{uname}</b>\n\n<b>Your Requested Torrent Link Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
             time.sleep(1)
             sendtextlog(f"{uname} has sent - \n\n<code>{link}</code>\n\nUser ID : {uid}", bot, update)
             time.sleep(1)
         elif '0:/' in link or '1:/' in link or '2:/' in link or '3:/' in link or '4:/' in link or '5:/' in link or '6:/' in link or "workers.dev" in link:
-            editMessage(f"<b>Hei {uname}</b>\n\n<b>Your Requested Index Link Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
+            editMessage(f"<b>{uname}</b>\n\n<b>Your Requested Index Link Has Been Added To The Status</b>\n\n<b>Filename:</b> <code>{download_dict[listener.uid].name()}</code>\n\n<b>Use /{BotCommands.StatusCommand} To Check Your Progress</b>\n", mssg)
             time.sleep(1)
             sendtextlog(f"{uname} has sent - \n\n<code>{link}</code>\n\nUser ID : {uid}", bot, update)
             time.sleep(1)
