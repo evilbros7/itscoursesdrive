@@ -170,7 +170,7 @@ class GoogleDriveHelper:
         # File body description
         file_metadata = {
             'name': file_name,
-            'description': '👨‍🦰 ᴜᴘʟᴏᴀᴅᴇᴅ ᴜꜱɪɴɢ ᴘʀɪɪɪɪʏᴏ-ᴍɪʀʀᴏʀ-ʟᴇᴇᴄʜ-ʙᴏᴛ',
+            'description': '👨‍🦰 ᴜᴘʟᴏᴀᴅᴇᴅ ʙʏ ᴘʀᴏɴᴏᴏʙ',
             'mimeType': mime_type,
         }
         if parent_id is not None:
@@ -454,7 +454,7 @@ class GoogleDriveHelper:
     def create_directory(self, directory_name, parent_id):
         file_metadata = {
             "name": directory_name,
-            "description": "👨‍🦱 ᴜᴘʟᴏᴀᴅᴇᴅ ʙʏ ᴘʀɪɪɪɪʏᴏ-ᴍɪʀʀᴏʀ-ʟᴇᴇᴄʜ-ʙᴏᴛ",
+            "description": "👨‍🦱 ᴜᴘʟᴏᴀᴅᴇᴅ ʙʏ ᴘʀᴏɴᴏᴏʙ",
             "mimeType": self.__G_DRIVE_DIR_MIME_TYPE
         }
         if parent_id is not None:
